@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111322" />
+  <title>Quizora — Learn something brilliant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" data-nav="home"><span class="brand-mark">Q</span><span>quizora<span class="brand-dot">.</span></span></a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="side-nav">
+        <button class="nav-link active" data-nav="home"><span>⌂</span> Overview</button>
+        <button class="nav-link" data-nav="explore"><span>▦</span> Explore questions</button>
+        <button class="nav-link" data-nav="admin"><span>＋</span> Manage questions</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="side-promo"><div class="promo-icon">✦</div><strong>Small steps.<br>Big brain energy.</strong><p>Keep showing up and let curiosity do its thing.</p></div>
+        <div class="profile"><div class="avatar">Q</div><div><strong>Quiz explorer</strong><small>Keep learning</small></div><span class="profile-more">•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-brand" data-nav="home"><span class="brand-mark">Q</span> quizora<span class="brand-dot">.</span></button>
+        <div class="breadcrumb">Workspace <span>/</span> <b id="crumb">Overview</b></div>
+        <div class="top-actions"><span class="live-dot"></span><span class="api-status" id="apiStatus">Connecting to API…</span><button class="icon-button" id="refreshBtn" title="Refresh questions" aria-label="Refresh">↻</button></div>
+      </header>
+
+      <section class="page active" id="homePage">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL LEARNING SPACE</div>
+            <h1>Make curiosity<br>your <em>superpower.</em></h1>
+            <p>Pick a topic, challenge what you know, and make every answer count.</p>
+            <div class="hero-actions"><button class="btn btn-primary" id="startRandomBtn">Start a quick quiz <span>↗</span></button><button class="btn btn-ghost" data-nav="explore">Explore topics</button></div>
+          </div>
+          <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-orb"><span>✳</span></div><div class="float-card float-card-top">✦ <b>STAY CURIOUS</b></div><div class="float-card float-card-bottom"><span class="tiny-bars">▂ ▄ ▆ █</span><b>LEVEL UP</b></div><div class="spark spark-a">✦</div><div class="spark spark-b">✧</div></div>
+          <div class="hero-index">01 <span>— 03</span></div>
+        </div>
+
+        <div class="section-heading"><div><div class="eyebrow muted">A LITTLE PROGRESS GOES A LONG WAY</div><h2>Your learning snapshot</h2></div><span class="subtle-note">Live from your question bank</span></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon violet">▤</div><div class="stat-label">TOTAL QUESTIONS</div><div class="stat-value" id="totalCount">—</div><div class="stat-foot">Ready to explore</div></article>
+          <article class="stat-card"><div class="stat-icon mint">◈</div><div class="stat-label">TOPICS AVAILABLE</div><div class="stat-value" id="categoryCount">—</div><div class="stat-foot">Different knowledge paths</div></article>
+          <article class="stat-card"><div class="stat-icon peach">⚡</div><div class="stat-label">QUIZ MODE</div><div class="stat-value">On</div><div class="stat-foot">Choose a topic and play</div></article>
+        </div>
+
+        <div class="section-heading topic-heading"><div><div class="eyebrow muted">FIND YOUR NEXT CHALLENGE</div><h2>Explore by topic</h2></div><button class="text-button" data-nav="explore">View all topics <span>→</span></button></div>
+        <div class="category-grid" id="homeCategories"><div class="empty-state">Loading your topics…</div></div>
+      </section>
+
+      <section class="page" id="explorePage">
+        <div class="page-intro"><div class="eyebrow muted">THE QUESTION LIBRARY</div><h1>Explore <em>your world.</em></h1><p>Browse the question bank and choose what you want to master next.</p></div>
+        <div class="toolbar"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search questions or topics…" /></label><select id="categoryFilter" aria-label="Filter by category"><option value="">All topics</option></select><select id="difficultyFilter" aria-label="Filter by difficulty"><option value="">All levels</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
+        <div class="results-line"><span id="resultCount">All questions</span><button class="text-button" id="clearFilters">Clear filters ×</button></div>
+        <div class="question-grid" id="questionGrid"><div class="empty-state">Loading questions…</div></div>
+      </section>
+
+      <section class="page" id="quizPage">
+        <div class="quiz-topline"><button class="text-button" id="exitQuiz">← Back to topics</button><span class="quiz-kicker" id="quizTopic">QUICK QUIZ</span></div>
+        <div class="quiz-layout">
+          <div class="quiz-main">
+            <div class="quiz-progress-row"><span id="questionProgress">QUESTION 1 OF 5</span><span id="progressPercent">20%</span></div>
+            <div class="progress-track"><div id="progressBar"></div></div>
+            <div class="quiz-card">
+              <div class="question-meta"><span class="pill" id="questionDifficulty">EASY</span><span id="questionNumber">01 / 05</span></div>
+              <h2 id="quizQuestion">Your question will appear here.</h2>
+              <div class="options-list" id="quizOptions"></div>
+              <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+              <div class="quiz-footer"><span id="answerHint">Choose the best answer.</span><button class="btn btn-primary" id="nextQuestionBtn" disabled>Check answer <span>→</span></button></div>
+            </div>
+          </div>
+          <aside class="quiz-aside"><div class="aside-symbol">✳</div><div class="eyebrow muted">A QUICK REMINDER</div><h3>Progress over perfection.</h3><p>Take your time. Every question is a chance to learn something new.</p><div class="aside-divider"></div><div class="aside-stat"><span>Questions in this round</span><b id="roundCount">5</b></div></aside>
+        </div>
+      </section>
+
+      <section class="page" id="resultPage">
+        <div class="result-card"><div class="result-confetti">✦　✧　✳</div><div class="eyebrow muted">ROUND COMPLETE</div><h1 id="resultTitle">Nicely done!</h1><div class="score-ring" id="scoreRing"><div><strong id="scoreValue">0/0</strong><small>SCORE</small></div></div><p id="resultMessage">Every round makes you sharper.</p><div class="result-actions"><button class="btn btn-primary" id="retryQuiz">Try again <span>↻</span></button><button class="btn btn-ghost" data-nav="explore">Choose another topic</button></div></div>
+      </section>
+
+      <section class="page" id="adminPage">
+        <div class="page-intro"><div class="eyebrow muted">YOUR QUESTION BANK</div><h1>Manage <em>questions.</em></h1><p>Add new challenges or remove questions from your database.</p></div>
+        <div class="admin-layout">
+          <form class="admin-form" id="addQuestionForm">
+            <div class="form-heading"><div><div class="eyebrow muted">CREATE SOMETHING NEW</div><h2>Add a question</h2></div><span class="form-plus">＋</span></div>
+            <label>Question<input name="question_title" required placeholder="e.g. What does JVM stand for?" /></label>
+            <div class="form-two"><label>Option 1<input name="option1" required /></label><label>Option 2<input name="option2" required /></label><label>Option 3<input name="option3" required /></label><label>Option 4<input name="option4" required /></label></div>
+            <label>Correct answer<select name="right_answer" required><option value="">Choose the correct option text</option></select></label>
+            <div class="form-two"><label>Difficulty<select name="difficulty_level" required><option value="">Choose level</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label><label>Category<input name="category" required placeholder="e.g. Java" /></label></div>
+            <button class="btn btn-primary full-btn" type="submit">Save question <span>↗</span></button><p class="form-message" id="formMessage" aria-live="polite"></p>
+          </form>
+          <div class="admin-list-panel"><div class="form-heading"><div><div class="eyebrow muted">DATABASE CONTENTS</div><h2>Recent questions</h2></div><span class="count-badge" id="adminCount">0</span></div><div id="adminQuestionList" class="admin-question-list"><div class="empty-state">Loading…</div></div></div>
+        </div>
+      </section>
+
+      <footer class="footer"><span>QUIZORA <b>©</b> 2026</span><span>Made for curious minds <i>✦</i></span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
